@@ -52,9 +52,11 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "sha.js": "^2.4.10"
+    "axios": "^0.18.0",
+    "qs": "^6.5.1"
   },
   "devDependencies": {
+    "@types/qs": "^6.5.1",
     "ava": "^1.0.0-beta.3",
     "codecov": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
@@ -69,7 +71,6 @@
     "trash-cli": "^1.4.0",
     "tslint": "^5.4.3",
     "tslint-config-prettier": "^1.8.0",
-    "tslint-immutable": "^4.5.1",
     "typedoc": "^0.11.1",
     "typescript": "^2.4.1"
   },
