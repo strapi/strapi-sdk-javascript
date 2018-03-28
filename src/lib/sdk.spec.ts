@@ -1,2 +1,2 @@
-// import { test } from 'ava';
-// import {  }
+// import { test } from 'ava'
+// import Strapi from './sdk'
