@@ -120,6 +120,58 @@ export default class Strapi {
       throw error.response.message;
     }
   }
+  
+  /**
+   * List entries
+   * @param contentType
+   * @param params Filter and order queries.
+   */
+  public getEntries(contentType: string, params?: AxiosRequestConfig['params']): Promise<any[]> {
+    return this.request('get', `/${contentType}`, {
+      params
+    });
+  }
+  
+  /**
+   * Get a specific entry
+   * @param contentType
+   * @param id 
+   */
+  public getEntry(contentType: string, id: string): Promise<any> {
+    return this.request('get', `/${contentType}/${id}`);
+  }
+  
+  /**
+   * Create data
+   * @param contentType 
+   * @param data New entry
+   */
+  public createEntry(contentType: string, data: AxiosRequestConfig['data']): Promise<any> {
+    return this.request('post', `/${contentType}`, {
+      data
+    });
+  }
+  
+  /**
+   * Update data
+   * @param contentType 
+   * @param id 
+   * @param data 
+   */
+  public updateEntry(contentType: string, id: string, data: AxiosRequestConfig['data']): Promise<any> {
+    return this.request('put', `/${contentType}/${id}`, {
+      data
+    });
+  }
+  
+  /**
+   * 
+   * @param contentType 
+   * @param id 
+   */
+  public deleteEntry(contentType: string, id: string): Promise<any> {
+    return this.request('delete', `/${contentType}/${id}`);
+  }
 
   private setToken(token: string): void {
     this.axios.defaults.headers.common.Authorization = 'Bearer ' + token;
