@@ -1,6 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as qs from 'qs';
 
+export interface Authentication {
+  user: object,
+  jwt: string
+}
+
 export default class Strapi {
   private axios: AxiosInstance;
 
@@ -28,9 +33,9 @@ export default class Strapi {
     username: string,
     email: string,
     password: string
-  ): Promise<object> {
+  ): Promise<Authentication> {
     this.clearToken();
-    const authentication = await this.request('post', '/auth/local/register', {
+    const authentication: Authentication = await this.request('post', '/auth/local/register', {
       data: {
         email,
         password,
@@ -47,9 +52,9 @@ export default class Strapi {
    * @param password
    * @returns Authentication object with user and token
    */
-  public async login(identifier: string, password: string): Promise<object> {
+  public async login(identifier: string, password: string): Promise<Authentication> {
     this.clearToken();
-    const authentication = await this.request('post', '/auth/local', {
+    const authentication: Authentication = await this.request('post', '/auth/local', {
       data: {
         identifier,
         password
