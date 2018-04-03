@@ -170,7 +170,7 @@ export default class Strapi {
   }
   
   /**
-   * 
+   * Delete an entry
    * @param contentType 
    * @param id 
    */
@@ -178,6 +178,24 @@ export default class Strapi {
     return this.request('delete', `/${contentType}/${id}`);
   }
   
+  /**
+   * Search for files
+   * @param query
+   */
+  public searchFiles(query: string): Promise<object[]> {
+    return this.request('get', `/upload/search/${decodeURIComponent(query)}`);
+  }
+  
+  /**
+   * Get files
+   * @param params Filter and order queries.
+   */
+  public getFiles(params?: AxiosRequestConfig['params']): Promise<object[]> {
+    return this.request('get', '/upload/files', {
+      params
+    });
+  }
+
   private setToken(token: string): void {
     this.axios.defaults.headers.common.Authorization = 'Bearer ' + token;
   }
