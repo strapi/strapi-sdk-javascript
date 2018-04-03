@@ -122,7 +122,7 @@ export default class Strapi {
       });
       return response.data;
     } catch (error) {
-      throw error.response.message;
+      throw error.response.data.message;
     }
   }
   
@@ -177,7 +177,7 @@ export default class Strapi {
   public deleteEntry(contentType: string, id: string): Promise<any> {
     return this.request('delete', `/${contentType}/${id}`);
   }
-
+  
   private setToken(token: string): void {
     this.axios.defaults.headers.common.Authorization = 'Bearer ' + token;
   }
