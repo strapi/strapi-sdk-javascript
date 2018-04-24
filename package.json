@@ -1,5 +1,5 @@
 {
-  "name": "typescript-starter",
+  "name": "strapi-sdk-javascript",
   "version": "1.0.0",
   "description": "The official Strapi SDK for JavaScript",
   "main": "build/main/index.js",
@@ -57,22 +57,22 @@
   },
   "devDependencies": {
     "@types/qs": "^6.5.1",
-    "ava": "^1.0.0-beta.3",
+    "ava": "^1.0.0-beta.4",
     "codecov": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "gh-pages": "^1.0.0",
     "npm-run-all": "^4.1.2",
     "npm-scripts-info": "^0.3.6",
     "nsp": "^3.2.1",
-    "nyc": "^11.5.0",
+    "nyc": "^11.7.1",
     "opn-cli": "^3.1.0",
-    "prettier": "^1.10.2",
+    "prettier": "^1.12.1",
     "standard-version": "^4.0.0",
     "trash-cli": "^1.4.0",
     "tslint": "^5.4.3",
-    "tslint-config-prettier": "^1.8.0",
+    "tslint-config-prettier": "^1.12.0",
     "typedoc": "^0.11.1",
-    "typescript": "^2.4.1"
+    "typescript": "^2.8.3"
   },
   "ava": {
     "failFast": true,
