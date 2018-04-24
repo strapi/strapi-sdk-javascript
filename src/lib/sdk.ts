@@ -2,8 +2,8 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as qs from 'qs';
 
 export interface Authentication {
-  user: object,
-  jwt: string
+  user: object;
+  jwt: string;
 }
 
 export default class Strapi {
@@ -14,11 +14,11 @@ export default class Strapi {
    * @param baseURL Your Strapi host.
    * @param axiosConfig Extend Axios configuration.
    */
-  constructor(baseURL: string, axiosConfig?: AxiosRequestConfig) {
+  constructor(baseURL: string, requestConfig?: AxiosRequestConfig) {
     this.axios = axios.create({
       baseURL,
       paramsSerializer: qs.stringify,
-      ...axiosConfig
+      ...requestConfig
     });
   }
 
@@ -27,7 +27,7 @@ export default class Strapi {
    * @param username
    * @param email
    * @param password
-   * @returns Authentication object with user and token
+   * @returns Authentication User token and profile
    */
   public async register(
     username: string,
@@ -35,13 +35,17 @@ export default class Strapi {
     password: string
   ): Promise<Authentication> {
     this.clearToken();
-    const authentication: Authentication = await this.request('post', '/auth/local/register', {
-      data: {
-        email,
-        password,
-        username
+    const authentication: Authentication = await this.request(
+      'post',
+      '/auth/local/register',
+      {
+        data: {
+          email,
+          password,
+          username
+        }
       }
-    });
+    );
     this.setToken(authentication.jwt);
     return authentication;
   }
@@ -50,16 +54,23 @@ export default class Strapi {
    * Login by getting an authentication token.
    * @param identifier Can either be an email or a username.
    * @param password
-   * @returns Authentication object with user and token
+   * @returns Authentication User token and profile
    */
-  public async login(identifier: string, password: string): Promise<Authentication> {
+  public async login(
+    identifier: string,
+    password: string
+  ): Promise<Authentication> {
     this.clearToken();
-    const authentication: Authentication = await this.request('post', '/auth/local', {
-      data: {
-        identifier,
-        password
+    const authentication: Authentication = await this.request(
+      'post',
+      '/auth/local',
+      {
+        data: {
+          identifier,
+          password
+        }
       }
-    });
+    );
     this.setToken(authentication.jwt);
     return authentication;
   }
@@ -107,7 +118,6 @@ export default class Strapi {
    * @param method Request method
    * @param url Server URL
    * @param requestConfig Custom Axios config
-   * @returns Data
    */
   public async request(
     method: string = 'get',
@@ -125,81 +135,133 @@ export default class Strapi {
       throw error.response.data.message;
     }
   }
-  
+
   /**
    * List entries
    * @param contentType
    * @param params Filter and order queries.
    */
-  public getEntries(contentType: string, params?: AxiosRequestConfig['params']): Promise<any[]> {
+  public getEntries(
+    contentType: string,
+    params?: AxiosRequestConfig['params']
+  ): Promise<any[]> {
     return this.request('get', `/${contentType}`, {
       params
     });
   }
-  
+
   /**
    * Get a specific entry
-   * @param contentType
-   * @param id 
+   * @param contentType Type of entry
+   * @param id ID of entry
    */
   public getEntry(contentType: string, id: string): Promise<any> {
     return this.request('get', `/${contentType}/${id}`);
   }
-  
+
   /**
    * Create data
-   * @param contentType 
+   * @param contentType Type of entry
    * @param data New entry
    */
-  public createEntry(contentType: string, data: AxiosRequestConfig['data']): Promise<any> {
+  public createEntry(
+    contentType: string,
+    data: AxiosRequestConfig['data']
+  ): Promise<any> {
     return this.request('post', `/${contentType}`, {
       data
     });
   }
-  
+
   /**
    * Update data
-   * @param contentType 
-   * @param id 
-   * @param data 
+   * @param contentType Type of entry
+   * @param id ID of entry
+   * @param data
    */
-  public updateEntry(contentType: string, id: string, data: AxiosRequestConfig['data']): Promise<any> {
+  public updateEntry(
+    contentType: string,
+    id: string,
+    data: AxiosRequestConfig['data']
+  ): Promise<any> {
     return this.request('put', `/${contentType}/${id}`, {
       data
     });
   }
-  
+
   /**
    * Delete an entry
-   * @param contentType 
-   * @param id 
+   * @param contentType Type of entry
+   * @param id ID of entry
    */
-  public deleteEntry(contentType: string, id: string): Promise<any> {
+  public deleteEntry(
+    contentType: string,
+    id: string
+  ): Promise<any> {
     return this.request('delete', `/${contentType}/${id}`);
   }
-  
+
   /**
    * Search for files
-   * @param query
+   * @param query Keywords
    */
-  public searchFiles(query: string): Promise<object[]> {
+  public searchFiles(
+    query: string
+  ): Promise<object[]> {
     return this.request('get', `/upload/search/${decodeURIComponent(query)}`);
   }
-  
+
   /**
    * Get files
-   * @param params Filter and order queries.
+   * @param params Filter and order queries
+   * @returns Object[] Files data
    */
-  public getFiles(params?: AxiosRequestConfig['params']): Promise<object[]> {
+  public getFiles(
+    params?: AxiosRequestConfig['params']
+  ): Promise<object[]> {
     return this.request('get', '/upload/files', {
       params
     });
   }
 
-  private setToken(token: string): void {
+  /**
+   * Get file
+   * @param id ID of entry
+   */
+  public getFile(
+    id: string
+  ): Promise<object> {
+    return this.request('get', `/upload/files/${id}`);
+  }
+
+  /**
+   * Upload files
+   * @param data Files
+   * @param requestConfig
+   */
+  public upload(
+    data: any,
+    requestConfig?: AxiosRequestConfig
+  ): Promise<object> {
+    return this.request('post', '/upload', {
+      data,
+      ...requestConfig
+    });
+  }
+
+  /**
+   * Set token on Axios configuration
+   * @param token Retrieved by register or login
+   */
+  public setToken(
+    token: string
+  ): void {
     this.axios.defaults.headers.common.Authorization = 'Bearer ' + token;
   }
 
+  /**
+   * Remove token from Axios configuration
+   */
   private clearToken(): void {
     delete this.axios.defaults.headers.common.Authorization;
   }
