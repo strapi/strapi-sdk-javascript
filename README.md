@@ -1,14 +1,17 @@
-# Strapi javascript SDK
 
-![Strapi](https://cldup.com/7umchwdUBh.png)
+<p align="center"><img src="https://cldup.com/7umchwdUBh.png" /></p>
 
-The official Strapi SDK for JavaScript, available for browsers or Node.js backends.
+<h3 align="center">The official Strapi SDK for JavaScript, available for browsers or Node.js backends.</h3>
 
 ***
 
-[![Travis](https://img.shields.io/travis/strapi/strapi-sdk-javascript.svg?style=for-the-badge)](https://travis-ci.org/strapi/strapi-sdk-javascript)
-[![GitHub release](https://img.shields.io/github/release/strapi/strapi-sdk-javascript.svg?style=for-the-badge)](https://github.com/strapi/strapi-sdk-javascript/releases)
-[![Codecov](https://img.shields.io/codecov/c/github/strapi/strapi-sdk-javascript.svg?style=for-the-badge)](https://codecov.io/gh/strapi/strapi-sdk-javascript)
+<p align="center">
+    <a href="https://travis-ci.org/strapi/strapi-sdk-javascript"><img src="https://img.shields.io/travis/strapi/strapi-sdk-javascript.svg?style=for-the-badge" /></a>
+    <a href="https://github.com/strapi/strapi-sdk-javascript/releases"><img src="hhttps://img.shields.io/github/release/strapi/strapi-sdk-javascript.svg?style=for-the-badge" /></a>
+    <a href="https://codecov.io/gh/strapi/strapi-sdk-javascript"><img src="https://img.shields.io/codecov/c/github/strapi/strapi-sdk-javascript.svg?style=for-the-badge" /></a>
+</p>
+
+<br>
 
 ## Install
 
