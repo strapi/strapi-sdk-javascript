@@ -54,6 +54,13 @@ const strapi = new Strapi('http://localhost:1337')
 - [Documentation](https://strapi.github.io/strapi-sdk-javascript)
 - [Changelog](https://github.com/strapi/strapi-sdk-javascript/blob/master/CHANGELOG.md)
 
+## Roadmap
+
+- GraphQL
+- Unit tests
+- Providers authentication helpers
+- Attach/Detach entry relationship
+
 ## Credits
 
 - [axios](https://github.com/axios/axios)
