@@ -34,7 +34,7 @@ const strapi = new Strapi('http://localhost:1337');
 
 ## API
 
-### `Strapi(baseURL, [requestConfig](https://github.com/axios/axios#request-config))`
+### `Strapi(baseURL, requestConfig)`
 ### `register(username, email, password)`
 ### `login(identifier, password)`
 ### `forgotPassword(email, url)`
@@ -50,6 +50,10 @@ const strapi = new Strapi('http://localhost:1337');
 ### `getFiles(params)`
 ### `getFile(id)`
 ### `upload(data)`
+
+#### requestConfig
+
+Custom axios request configuration. [See documentation](https://github.com/axios/axios#request-config)
 
 ## Resources
 
