@@ -7,7 +7,7 @@ export interface Authentication {
 }
 
 export default class Strapi {
-  private axios: AxiosInstance;
+  public axios: AxiosInstance;
 
   /**
    * Default constructor.
@@ -29,7 +29,11 @@ export default class Strapi {
    * @param password
    * @returns Authentication User token and profile
    */
-  public async register(username: string, email: string, password: string): Promise<Authentication> {
+  public async register(
+    username: string,
+    email: string,
+    password: string
+  ): Promise<Authentication> {
     this.clearToken();
     const authentication: Authentication = await this.request(
       'post',
@@ -52,7 +56,10 @@ export default class Strapi {
    * @param password
    * @returns Authentication User token and profile
    */
-  public async login(identifier: string, password: string): Promise<Authentication> {
+  public async login(
+    identifier: string,
+    password: string
+  ): Promise<Authentication> {
     this.clearToken();
     const authentication: Authentication = await this.request(
       'post',
@@ -91,7 +98,11 @@ export default class Strapi {
    * @param password
    * @param passwordConfirmation
    */
-  public async resetPassword(code: string, password: string, passwordConfirmation: string): Promise<void> {
+  public async resetPassword(
+    code: string,
+    password: string,
+    passwordConfirmation: string
+  ): Promise<void> {
     this.clearToken();
     await this.request('post', '/auth/reset-password', {
       data: {
@@ -108,7 +119,11 @@ export default class Strapi {
    * @param url Server URL
    * @param requestConfig Custom Axios config
    */
-  public async request(method: string = 'get', url: string, requestConfig?: AxiosRequestConfig): Promise<any> {
+  public async request(
+    method: string,
+    url: string,
+    requestConfig?: AxiosRequestConfig
+  ): Promise<any> {
     try {
       const response: AxiosResponse = await this.axios.request({
         method,
@@ -117,7 +132,7 @@ export default class Strapi {
       });
       return response.data;
     } catch (error) {
-      throw error.response.data.message;
+      throw new Error(error.response.data.message);
     }
   }
 
@@ -126,7 +141,10 @@ export default class Strapi {
    * @param contentType
    * @param params Filter and order queries.
    */
-  public getEntries(contentType: string, params?: AxiosRequestConfig['params']): Promise<any[]> {
+  public getEntries(
+    contentType: string,
+    params?: AxiosRequestConfig['params']
+  ): Promise<object[]> {
     return this.request('get', `/${contentType}`, {
       params
     });
@@ -137,7 +155,7 @@ export default class Strapi {
    * @param contentType Type of entry
    * @param id ID of entry
    */
-  public getEntry(contentType: string, id: string): Promise<any> {
+  public getEntry(contentType: string, id: string): Promise<object> {
     return this.request('get', `/${contentType}/${id}`);
   }
 
@@ -146,7 +164,10 @@ export default class Strapi {
    * @param contentType Type of entry
    * @param data New entry
    */
-  public createEntry(contentType: string, data: AxiosRequestConfig['data']): Promise<any> {
+  public createEntry(
+    contentType: string,
+    data: AxiosRequestConfig['data']
+  ): Promise<object> {
     return this.request('post', `/${contentType}`, {
       data
     });
@@ -158,7 +179,11 @@ export default class Strapi {
    * @param id ID of entry
    * @param data
    */
-  public updateEntry(contentType: string, id: string, data: AxiosRequestConfig['data']): Promise<any> {
+  public updateEntry(
+    contentType: string,
+    id: string,
+    data: AxiosRequestConfig['data']
+  ): Promise<object> {
     return this.request('put', `/${contentType}/${id}`, {
       data
     });
@@ -169,7 +194,7 @@ export default class Strapi {
    * @param contentType Type of entry
    * @param id ID of entry
    */
-  public deleteEntry(contentType: string, id: string): Promise<any> {
+  public deleteEntry(contentType: string, id: string): Promise<object> {
     return this.request('delete', `/${contentType}/${id}`);
   }
 
@@ -205,7 +230,10 @@ export default class Strapi {
    * @param data Files
    * @param requestConfig
    */
-  public upload(data: any, requestConfig?: AxiosRequestConfig): Promise<object> {
+  public upload(
+    data: any,
+    requestConfig?: AxiosRequestConfig
+  ): Promise<object> {
     return this.request('post', '/upload', {
       data,
       ...requestConfig
