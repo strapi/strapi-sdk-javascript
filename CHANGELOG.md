@@ -8,12 +8,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **sdk:** catching server error message ([a97974d](https://github.com/lucaperret/strapi-sdk/commit/a97974d))
+* **sdk:** catching server error message ([a97974d](https://github.com/strapi/strapi-sdk-javascript/commit/a97974d))
 
 
 ### Features
 
-* **sdk:** authentication ([0e57fa0](https://github.com/lucaperret/strapi-sdk/commit/0e57fa0))
-* **sdk:** authentication ([4ae0403](https://github.com/lucaperret/strapi-sdk/commit/4ae0403))
-* **sdk:** CRUD methods for [#1](https://github.com/lucaperret/strapi-sdk/issues/1) ([0d9e83a](https://github.com/lucaperret/strapi-sdk/commit/0d9e83a))
-* **upload:** add searchFiles and getFiles for [#2](https://github.com/lucaperret/strapi-sdk/issues/2) ([6ba8365](https://github.com/lucaperret/strapi-sdk/commit/6ba8365))
+* **sdk:** authentication ([0e57fa0](https://github.com/strapi/strapi-sdk-javascript/commit/0e57fa0))
+* **sdk:** authentication ([4ae0403](https://github.com/strapi/strapi-sdk-javascript/commit/4ae0403))
+* **sdk:** CRUD methods for [#1](https://github.com/strapi/strapi-sdk-javascript/issues/1) ([0d9e83a](https://github.com/strapi/strapi-sdk-javascript/commit/0d9e83a))
+* **upload:** add searchFiles and getFiles for [#2](https://github.com/strapi/strapi-sdk-javascript/issues/2) ([6ba8365](https://github.com/strapi/strapi-sdk-javascript/commit/6ba8365))
