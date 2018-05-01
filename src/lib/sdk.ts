@@ -23,6 +23,29 @@ export default class Strapi {
   }
 
   /**
+   * Axios request
+   * @param method Request method
+   * @param url Server URL
+   * @param requestConfig Custom Axios config
+   */
+  public async request(
+    method: string,
+    url: string,
+    requestConfig?: AxiosRequestConfig
+  ): Promise<any> {
+    try {
+      const response: AxiosResponse = await this.axios.request({
+        method,
+        url,
+        ...requestConfig
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  }
+
+  /**
    * Register a new user.
    * @param username
    * @param email
@@ -111,29 +134,6 @@ export default class Strapi {
         passwordConfirmation
       }
     });
-  }
-
-  /**
-   * Axios request
-   * @param method Request method
-   * @param url Server URL
-   * @param requestConfig Custom Axios config
-   */
-  public async request(
-    method: string,
-    url: string,
-    requestConfig?: AxiosRequestConfig
-  ): Promise<any> {
-    try {
-      const response: AxiosResponse = await this.axios.request({
-        method,
-        url,
-        ...requestConfig
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response.data.message);
-    }
   }
 
   /**

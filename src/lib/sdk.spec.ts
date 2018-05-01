@@ -22,11 +22,11 @@ test('Create an instance', t => {
     Object.getOwnPropertyNames(Object.getPrototypeOf(t.context.strapi)),
     [
       'constructor',
+      'request',
       'register',
       'login',
       'forgotPassword',
       'resetPassword',
-      'request',
       'getEntries',
       'getEntry',
       'createEntry',
