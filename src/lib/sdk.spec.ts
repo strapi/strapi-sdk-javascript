@@ -1,4 +1,5 @@
 import anyTest, { TestInterface } from 'ava';
+import browserEnv from 'browser-env';
 import * as sinon from 'sinon';
 import Strapi from './sdk';
 
@@ -27,6 +28,8 @@ test('Create an instance', t => {
       'login',
       'forgotPassword',
       'resetPassword',
+      'getProviderAuthenticationUrl',
+      'authenticateProvider',
       'getEntries',
       'getEntry',
       'createEntry',
@@ -201,6 +204,73 @@ test('Reset password', async t => {
       url: '/auth/reset-password'
     })
   );
+});
+
+test('Provider authentication url', t => {
+  t.is(
+    t.context.strapi.getProviderAuthenticationUrl('facebook'),
+    'http://strapi-host/connect/facebook'
+  );
+});
+
+test('Provider authentication on Node.js', async t => {
+  t.context.axiosRequest.resolves({
+    data: {
+      jwt: 'foo',
+      user: {}
+    }
+  });
+  const authentication = await t.context.strapi.authenticateProvider(
+    'facebook',
+    {
+      code: 'XXX'
+    }
+  );
+
+  t.true(
+    t.context.axiosRequest.calledWithExactly({
+      method: 'get',
+      params: {
+        code: 'XXX'
+      },
+      url: '/auth/facebook/callback'
+    })
+  );
+  t.deepEqual(authentication, {
+    jwt: 'foo',
+    user: {}
+  });
+});
+
+test.serial('Provider authentication on browser', async t => {
+  const globalAny: any = global;
+  browserEnv(['window'], {
+    url: 'http://localhost?access_token=XXX'
+  });
+  t.context.axiosRequest.resolves({
+    data: {
+      jwt: 'foo',
+      user: {}
+    }
+  });
+  const authentication = await t.context.strapi.authenticateProvider(
+    'github'
+  );
+
+  t.true(
+    t.context.axiosRequest.calledWithExactly({
+      method: 'get',
+      params: {
+        access_token: 'XXX'
+      },
+      url: '/auth/github/callback'
+    })
+  );
+  t.deepEqual(authentication, {
+    jwt: 'foo',
+    user: {}
+  });
+  delete globalAny.window;
 });
 
 test('Get entries', async t => {

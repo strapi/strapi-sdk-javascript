@@ -6,6 +6,14 @@ export interface Authentication {
   jwt: string;
 }
 
+export type Provider = 'facebook' | 'google' | 'github' | 'twitter';
+
+export interface Token {
+  access_token?: string;
+  code?: string;
+  oauth_token?: string;
+}
+
 export default class Strapi {
   public axios: AxiosInstance;
 
@@ -134,6 +142,30 @@ export default class Strapi {
         passwordConfirmation
       }
     });
+  }
+
+  public getProviderAuthenticationUrl(provider: Provider): string {
+    return `${this.axios.defaults.baseURL}/connect/${provider}`;
+  }
+
+  public async authenticateProvider(
+    provider: Provider,
+    params?: Token
+  ): Promise<Authentication> {
+    this.clearToken();
+    // Handling browser query
+    if (typeof window !== 'undefined') {
+      params = qs.parse(window.location.search, { ignoreQueryPrefix: true });
+    }
+    const authentication: Authentication = await this.request(
+      'get',
+      `/auth/${provider}/callback`,
+      {
+        params
+      }
+    );
+    this.setToken(authentication.jwt);
+    return authentication;
   }
 
   /**
