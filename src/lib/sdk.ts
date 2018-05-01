@@ -144,10 +144,19 @@ export default class Strapi {
     });
   }
 
+  /**
+   * Retrieve the connect provider URL
+   * @param provider
+   */
   public getProviderAuthenticationUrl(provider: Provider): string {
     return `${this.axios.defaults.baseURL}/connect/${provider}`;
   }
 
+  /**
+   * Authenticate the user with the token present on the URL (for browser) or in `params` (on Node.js)
+   * @param provider
+   * @param params
+   */
   public async authenticateProvider(
     provider: Provider,
     params?: Token

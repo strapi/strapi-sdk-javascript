@@ -35,12 +35,14 @@ const strapi = new Strapi('http://localhost:1337');
 ## API
 
 ### `Strapi(baseURL, requestConfig)`
+### `request(method, url, requestConfig)`
 ### `register(username, email, password)`
 ### `login(identifier, password)`
 ### `forgotPassword(email, url)`
 ### `resetPassword(code, password, passwordConfirmation)`
+### `getProviderAuthenticationUrl(provider)`
+### `authenticateProvider(provider, params)`
 ### `setToken(token)`
-### `request(method, url, requestConfig)`
 ### `getEntries(contentType, params)`
 ### `getEntry(contentType, id)`
 ### `createEntry(contentType, data)`
