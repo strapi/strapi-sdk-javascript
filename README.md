@@ -20,27 +20,56 @@ npm install strapi-sdk-javascript
 
 ## Start now
 
+### New instance
 ```js
 import Strapi from 'strapi-sdk-javascript';
 
 const strapi = new Strapi('http://localhost:1337');
-
-(async () => {
-  // Local authentication
-  await strapi.login('username_or_email', 's3cr3t');
-
-  // Or within provider
-  window.location = strapi.getProviderAuthenticationUrl('facebook')
-  // ...
-  // Once authorized, Facebook redirects the user to your app with an access token in the URL.
-  // Complete the authentication: (The SDK will handle the access token for you)
-  await strapi.authenticateProvider('facebook')
-
-  // You can now fetch private APIs
-  const posts = await strapi.getEntries('post');
-  console.log(`Posts count: ${posts.length}`);
-})();
 ```
+
+### Authentications
+
+#### Local
+```js
+await strapi.login('username_or_email', 's3cr3t');
+```
+
+#### [Providers](https://strapi.io/documentation/guides/authentication.html#providers)
+```js
+// Redirect your user to the provider's authentication page.
+window.location = strapi.getProviderAuthenticationUrl('facebook');
+```
+Once authorized, the provider will redirects the user to your app with an access token in the URL.
+```js
+// Complete the authentication: (The SDK will store the access token for you)
+await strapi.authenticateProvider('facebook');
+```
+You can now fetch private APIs
+```js
+const posts = await strapi.getEntries('post');
+```
+
+### Files management
+
+#### Browser
+```js
+const form = new FormData();
+form.append('files', fileInputElement.files[0], 'file-name.ext');
+form.append('files', fileInputElement.files[1], 'file-2-name.ext');
+const files = await strapi.upload(form);
+```
+
+#### Node.js
+```js
+const FormData = require('form-data');
+const fs = require('fs');
+const form = new FormData();
+form.append('files', fs.createReadStream('./file-name.ext'), 'file-name.ext');
+const files = await strapi.upload(form, {
+  headers: form.getHeaders()
+});
+```
+
 
 ## API
 
