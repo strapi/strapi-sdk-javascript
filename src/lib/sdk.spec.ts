@@ -449,7 +449,11 @@ test.serial('Upload file on Browser', async t => {
   browserEnv(['window']);
   const globalAny: any = global;
   const form = new globalAny.window.FormData();
-  form.append('files', new globalAny.window.Blob(['foo'], { type: 'text/plain' }), 'file-name.ext');
+  form.append(
+    'files',
+    new globalAny.window.Blob(['foo'], { type: 'text/plain' }),
+    'file-name.ext'
+  );
   await t.context.strapi.upload(form);
 
   t.true(
