@@ -77,6 +77,7 @@ Custom axios request configuration. [See documentation](https://github.com/axios
 
 * GraphQL
 * Attach/Detach entry relationship
+* Real time with Socket.io
 
 ## Credits
 
