@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/strapi/strapi-sdk-javascript/compare/v0.1.0...v0.2.0) (2018-05-02)
+
+
+### Features
+
+* **authentication:** handle providers ([46f8602](https://github.com/strapi/strapi-sdk-javascript/commit/46f8602)), closes [#3](https://github.com/strapi/strapi-sdk-javascript/issues/3)
+* **authentication:** persist the token ([906999e](https://github.com/strapi/strapi-sdk-javascript/commit/906999e)), closes [#3](https://github.com/strapi/strapi-sdk-javascript/issues/3) [#7](https://github.com/strapi/strapi-sdk-javascript/issues/7)
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2018-04-26)
 
