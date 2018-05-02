@@ -9,7 +9,7 @@ export interface Authentication {
 
 export type Provider = 'facebook' | 'google' | 'github' | 'twitter';
 
-export interface Token {
+export interface ProviderToken {
   access_token?: string;
   code?: string;
   oauth_token?: string;
@@ -205,7 +205,7 @@ export default class Strapi {
    */
   public async authenticateProvider(
     provider: Provider,
-    params?: Token
+    params?: ProviderToken
   ): Promise<Authentication> {
     this.clearToken();
     // Handling browser query
