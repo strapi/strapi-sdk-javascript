@@ -88,12 +88,14 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="strapi.html#axios" class="tsd-kind-icon">axios</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="strapi.html#storeconfig" class="tsd-kind-icon">store<wbr>Config</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="strapi.html#cleartoken" class="tsd-kind-icon">clear<wbr>Token</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#authenticateprovider" class="tsd-kind-icon">authenticate<wbr>Provider</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#cleartoken" class="tsd-kind-icon">clear<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#createentry" class="tsd-kind-icon">create<wbr>Entry</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#deleteentry" class="tsd-kind-icon">delete<wbr>Entry</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#forgotpassword" class="tsd-kind-icon">forgot<wbr>Password</a></li>
@@ -101,6 +103,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#getentry" class="tsd-kind-icon">get<wbr>Entry</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#getfile" class="tsd-kind-icon">get<wbr>File</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#getfiles" class="tsd-kind-icon">get<wbr>Files</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#getproviderauthenticationurl" class="tsd-kind-icon">get<wbr>Provider<wbr>Authentication<wbr>Url</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="strapi.html#isbrowser" class="tsd-kind-icon">is<wbr>Browser</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#login" class="tsd-kind-icon">login</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#register" class="tsd-kind-icon">register</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="strapi.html#request" class="tsd-kind-icon">request</a></li>
@@ -120,13 +124,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Strapi<span class="tsd-signature-symbol">(</span>baseURL<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, requestConfig<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AxiosRequestConfig</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="strapi.html" class="tsd-signature-type">Strapi</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Strapi<span class="tsd-signature-symbol">(</span>baseURL<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, storeConfig<span class="tsd-signature-symbol">?: </span><a href="../interfaces/storeconfig.html" class="tsd-signature-type">StoreConfig</a>, requestConfig<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AxiosRequestConfig</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="strapi.html" class="tsd-signature-type">Strapi</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L10">lib/sdk.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L34">lib/sdk.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -145,6 +149,9 @@
 									</div>
 								</li>
 								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> storeConfig: <a href="../interfaces/storeconfig.html" class="tsd-signature-type">StoreConfig</a></h5>
+								</li>
+								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> requestConfig: <span class="tsd-signature-type">AxiosRequestConfig</span></h5>
 								</li>
 							</ul>
@@ -161,24 +168,67 @@
 					<div class="tsd-signature tsd-kind-icon">axios<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AxiosInstance</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L10">lib/sdk.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L33">lib/sdk.ts:33</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="storeconfig" class="tsd-anchor"></a>
+					<h3>store<wbr>Config</h3>
+					<div class="tsd-signature tsd-kind-icon">store<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/storeconfig.html" class="tsd-signature-type">StoreConfig</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L34">lib/sdk.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="authenticateprovider" class="tsd-anchor"></a>
+					<h3>authenticate<wbr>Provider</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">authenticate<wbr>Provider<span class="tsd-signature-symbol">(</span>provider<span class="tsd-signature-symbol">: </span><a href="../globals.html#provider" class="tsd-signature-type">Provider</a>, params<span class="tsd-signature-symbol">?: </span><a href="../interfaces/token.html" class="tsd-signature-type">Token</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/authentication.html" class="tsd-signature-type">Authentication</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L206">lib/sdk.ts:206</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Authenticate the user with the token present on the URL (for browser) or in <code>params</code> (on Node.js)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>provider: <a href="../globals.html#provider" class="tsd-signature-type">Provider</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> params: <a href="../interfaces/token.html" class="tsd-signature-type">Token</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/authentication.html" class="tsd-signature-type">Authentication</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="cleartoken" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> clear<wbr>Token</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<h3>clear<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">clear<wbr>Token<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L254">lib/sdk.ts:254</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L356">lib/sdk.ts:356</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -200,7 +250,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L167">lib/sdk.ts:167</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L254">lib/sdk.ts:254</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -237,7 +287,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L197">lib/sdk.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L284">lib/sdk.ts:284</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -274,7 +324,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L85">lib/sdk.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L162">lib/sdk.ts:162</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -310,7 +360,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L144">lib/sdk.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L231">lib/sdk.ts:231</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -344,7 +394,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L158">lib/sdk.ts:158</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L245">lib/sdk.ts:245</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -381,7 +431,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L224">lib/sdk.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L311">lib/sdk.ts:311</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -412,7 +462,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L214">lib/sdk.ts:214</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L301">lib/sdk.ts:301</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -435,6 +485,58 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getproviderauthenticationurl" class="tsd-anchor"></a>
+					<h3>get<wbr>Provider<wbr>Authentication<wbr>Url</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Provider<wbr>Authentication<wbr>Url<span class="tsd-signature-symbol">(</span>provider<span class="tsd-signature-symbol">: </span><a href="../globals.html#provider" class="tsd-signature-type">Provider</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L197">lib/sdk.ts:197</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Retrieve the connect provider URL</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>provider: <a href="../globals.html#provider" class="tsd-signature-type">Provider</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="isbrowser" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> is<wbr>Browser</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Browser<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L374">lib/sdk.ts:374</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check if it runs on browser</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="login" class="tsd-anchor"></a>
 					<h3>login</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -444,7 +546,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L59">lib/sdk.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L136">lib/sdk.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -479,7 +581,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L32">lib/sdk.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L109">lib/sdk.ts:109</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -514,7 +616,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L122">lib/sdk.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L85">lib/sdk.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -557,7 +659,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L101">lib/sdk.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L178">lib/sdk.ts:178</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -596,7 +698,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L205">lib/sdk.ts:205</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L292">lib/sdk.ts:292</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -621,13 +723,13 @@
 					<a name="settoken" class="tsd-anchor"></a>
 					<h3>set<wbr>Token</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Token<span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Token<span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, comesFromStorage<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L247">lib/sdk.ts:247</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L334">lib/sdk.ts:334</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -642,6 +744,9 @@
 									<div class="tsd-comment tsd-typography">
 										<p>Retrieved by register or login</p>
 									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> comesFromStorage: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -658,7 +763,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L182">lib/sdk.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L269">lib/sdk.ts:269</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -700,7 +805,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/35ec140/src/lib/sdk.ts#L233">lib/sdk.ts:233</a></li>
+									<li>Defined in <a href="https://github.com/strapi/strapi-sdk-javascript/blob/af9b30d/src/lib/sdk.ts#L320">lib/sdk.ts:320</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -749,7 +854,13 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="strapi.html#axios" class="tsd-kind-icon">axios</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="strapi.html#storeconfig" class="tsd-kind-icon">store<wbr>Config</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="strapi.html#authenticateprovider" class="tsd-kind-icon">authenticate<wbr>Provider</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="strapi.html#cleartoken" class="tsd-kind-icon">clear<wbr>Token</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -772,6 +883,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="strapi.html#getfiles" class="tsd-kind-icon">get<wbr>Files</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="strapi.html#getproviderauthenticationurl" class="tsd-kind-icon">get<wbr>Provider<wbr>Authentication<wbr>Url</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="strapi.html#isbrowser" class="tsd-kind-icon">is<wbr>Browser</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="strapi.html#login" class="tsd-kind-icon">login</a>
@@ -803,6 +920,21 @@
 				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/authentication.html" class="tsd-kind-icon">Authentication</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/cookieconfig.html" class="tsd-kind-icon">Cookie<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/localstorageconfig.html" class="tsd-kind-icon">Local<wbr>Storage<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/storeconfig.html" class="tsd-kind-icon">Store<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/token.html" class="tsd-kind-icon">Token</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../globals.html#provider" class="tsd-kind-icon">Provider</a>
 					</li>
 				</ul>
 			</nav>
