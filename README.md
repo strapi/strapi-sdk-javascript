@@ -72,6 +72,7 @@ Custom axios request configuration. [See documentation](https://github.com/axios
 
 * [Documentation](https://strapi.github.io/strapi-sdk-javascript)
 * [Changelog](https://github.com/strapi/strapi-sdk-javascript/blob/master/CHANGELOG.md)
+* [Medium story](https://medium.com/strapi/announcing-the-strapi-javascript-sdk-ac89f140a9d1)
 
 ## Roadmap
 
