@@ -430,16 +430,36 @@ test('Get file', async t => {
   );
 });
 
-test('Upload file', async t => {
-  await t.context.strapi.upload('foo');
+test('Upload file on Node.js', async t => {
+  const FormData = require('form-data');
+  const form = new FormData();
+  form.append('files', 'foo', 'file-name.ext');
+  await t.context.strapi.upload(form);
 
   t.true(
     t.context.axiosRequest.calledWithExactly({
-      data: 'foo',
+      data: form,
       method: 'post',
       url: '/upload'
     })
   );
+});
+
+test.serial('Upload file on Browser', async t => {
+  browserEnv(['window']);
+  const globalAny: any = global;
+  const form = new globalAny.window.FormData();
+  form.append('files', new globalAny.window.Blob(['foo'], { type: 'text/plain' }), 'file-name.ext');
+  await t.context.strapi.upload(form);
+
+  t.true(
+    t.context.axiosRequest.calledWithExactly({
+      data: form,
+      method: 'post',
+      url: '/upload'
+    })
+  );
+  delete globalAny.window;
 });
 
 test('Set token', t => {

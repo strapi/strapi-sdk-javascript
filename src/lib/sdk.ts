@@ -314,11 +314,31 @@ export default class Strapi {
 
   /**
    * Upload files
-   * @param data Files
+   *
+   * ### Browser example
+   * ```js
+   * const form = new FormData();
+   * form.append('files', fileInputElement.files[0], 'file-name.ext');
+   * form.append('files', fileInputElement.files[1], 'file-2-name.ext');
+   * const files = await strapi.upload(form);
+   * ```
+   *
+   * ### Node.js example
+   * ```js
+   * const FormData = require('form-data');
+   * const fs = require('fs');
+   * const form = new FormData();
+   * form.append('files', fs.createReadStream('./file-name.ext'), 'file-name.ext');
+   * const files = await strapi.upload(form, {
+   *   headers: form.getHeaders()
+   * });
+   * ```
+   *
+   * @param data FormData
    * @param requestConfig
    */
   public upload(
-    data: any,
+    data: FormData,
     requestConfig?: AxiosRequestConfig
   ): Promise<object> {
     return this.request('post', '/upload', {
