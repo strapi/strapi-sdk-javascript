@@ -26,7 +26,17 @@ import Strapi from 'strapi-sdk-javascript';
 const strapi = new Strapi('http://localhost:1337');
 
 (async () => {
+  // Local authentication
   await strapi.login('username_or_email', 's3cr3t');
+
+  // Or within provider
+  window.location = strapi.getProviderAuthenticationUrl('facebook')
+  // ...
+  // Once authorized, Facebook redirects the user to your app with an access token in the URL.
+  // Complete the authentication: (The SDK will handle the access token for you)
+  await strapi.authenticateProvider('facebook')
+
+  // You can now fetch private APIs
   const posts = await strapi.getEntries('post');
   console.log(`Posts count: ${posts.length}`);
 })();
@@ -34,7 +44,7 @@ const strapi = new Strapi('http://localhost:1337');
 
 ## API
 
-### `Strapi(baseURL, requestConfig)`
+### `Strapi(baseURL, storeConfig, requestConfig)`
 ### `request(method, url, requestConfig)`
 ### `register(username, email, password)`
 ### `login(identifier, password)`
@@ -42,7 +52,8 @@ const strapi = new Strapi('http://localhost:1337');
 ### `resetPassword(code, password, passwordConfirmation)`
 ### `getProviderAuthenticationUrl(provider)`
 ### `authenticateProvider(provider, params)`
-### `setToken(token)`
+### `setToken(token, comesFromStorage)`
+### `clearToken(token)`
 ### `getEntries(contentType, params)`
 ### `getEntry(contentType, id)`
 ### `createEntry(contentType, data)`
@@ -65,7 +76,6 @@ Custom axios request configuration. [See documentation](https://github.com/axios
 ## Roadmap
 
 * GraphQL
-* Providers authentication helpers
 * Attach/Detach entry relationship
 
 ## Credits
