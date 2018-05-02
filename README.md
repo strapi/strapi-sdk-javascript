@@ -4,6 +4,8 @@
 
 ---
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/strapi/strapi-sdk-javascript.svg)](https://greenkeeper.io/)
+
 <p align="center">
     <a href="https://travis-ci.org/strapi/strapi-sdk-javascript"><img src="https://img.shields.io/travis/strapi/strapi-sdk-javascript.svg?style=for-the-badge" /></a>
     <a href="https://github.com/strapi/strapi-sdk-javascript/releases"><img src="https://img.shields.io/github/release/strapi/strapi-sdk-javascript.svg?style=for-the-badge" /></a>
