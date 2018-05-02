@@ -69,7 +69,7 @@
 				<hr>
 				<p align="center">
 					<a href="https://travis-ci.org/strapi/strapi-sdk-javascript"><img src="https://img.shields.io/travis/strapi/strapi-sdk-javascript.svg?style=for-the-badge" /></a>
-					<a href="https://github.com/strapi/strapi-sdk-javascript/releases"><img src="hhttps://img.shields.io/github/release/strapi/strapi-sdk-javascript.svg?style=for-the-badge" /></a>
+					<a href="https://github.com/strapi/strapi-sdk-javascript/releases"><img src="https://img.shields.io/github/release/strapi/strapi-sdk-javascript.svg?style=for-the-badge" /></a>
 					<a href="https://codecov.io/gh/strapi/strapi-sdk-javascript"><img src="https://img.shields.io/codecov/c/github/strapi/strapi-sdk-javascript.svg?style=for-the-badge" /></a>
 				</p>
 				<p><br></p>
@@ -77,25 +77,41 @@
 				<pre><code class="lang-sh">npm install strapi-sdk-javascript
 </code></pre>
 				<h2 id="start-now">Start now</h2>
+				<h3 id="new-instance">New instance</h3>
 				<pre><code class="lang-js"><span class="hljs-keyword">import</span> Strapi <span class="hljs-keyword">from</span> <span class="hljs-string">'strapi-sdk-javascript'</span>;
 
 <span class="hljs-keyword">const</span> strapi = <span class="hljs-keyword">new</span> Strapi(<span class="hljs-string">'http://localhost:1337'</span>);
-
-<span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span> (</span>) =&gt;</span> {
-  <span class="hljs-comment">// Local authentication</span>
-  <span class="hljs-keyword">await</span> strapi.login(<span class="hljs-string">'username_or_email'</span>, <span class="hljs-string">'s3cr3t'</span>);
-
-  <span class="hljs-comment">// Or within provider</span>
-  <span class="hljs-built_in">window</span>.location = strapi.getProviderAuthenticationUrl(<span class="hljs-string">'facebook'</span>)
-  <span class="hljs-comment">// ...</span>
-  <span class="hljs-comment">// Once authorized, Facebook redirects the user to your app with an access token in the URL.</span>
-  <span class="hljs-comment">// Complete the authentication: (The SDK will handle the access token for you)</span>
-  <span class="hljs-keyword">await</span> strapi.authenticateProvider(<span class="hljs-string">'facebook'</span>)
-
-  <span class="hljs-comment">// You can now fetch private APIs</span>
-  <span class="hljs-keyword">const</span> posts = <span class="hljs-keyword">await</span> strapi.getEntries(<span class="hljs-string">'post'</span>);
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Posts count: <span class="hljs-subst">${posts.length}</span>`</span>);
-})();
+</code></pre>
+				<h3 id="authentications">Authentications</h3>
+				<h4 id="local">Local</h4>
+				<pre><code class="lang-js"><span class="hljs-keyword">await</span> strapi.login(<span class="hljs-string">'username_or_email'</span>, <span class="hljs-string">'s3cr3t'</span>);
+</code></pre>
+				<h4 id="providers"><a href="https://strapi.io/documentation/guides/authentication.html#providers">Providers</a></h4>
+				<pre><code class="lang-js"><span class="hljs-comment">// Redirect your user to the provider's authentication page.</span>
+<span class="hljs-built_in">window</span>.location = strapi.getProviderAuthenticationUrl(<span class="hljs-string">'facebook'</span>);
+</code></pre>
+				<p>Once authorized, the provider will redirects the user to your app with an access token in the URL.</p>
+				<pre><code class="lang-js"><span class="hljs-comment">// Complete the authentication: (The SDK will store the access token for you)</span>
+<span class="hljs-keyword">await</span> strapi.authenticateProvider(<span class="hljs-string">'facebook'</span>);
+</code></pre>
+				<p>You can now fetch private APIs</p>
+				<pre><code class="lang-js"><span class="hljs-keyword">const</span> posts = <span class="hljs-keyword">await</span> strapi.getEntries(<span class="hljs-string">'post'</span>);
+</code></pre>
+				<h3 id="files-management">Files management</h3>
+				<h4 id="browser">Browser</h4>
+				<pre><code class="lang-js"><span class="hljs-keyword">const</span> form = <span class="hljs-keyword">new</span> FormData();
+form.append(<span class="hljs-string">'files'</span>, fileInputElement.files[<span class="hljs-number">0</span>], <span class="hljs-string">'file-name.ext'</span>);
+form.append(<span class="hljs-string">'files'</span>, fileInputElement.files[<span class="hljs-number">1</span>], <span class="hljs-string">'file-2-name.ext'</span>);
+<span class="hljs-keyword">const</span> files = <span class="hljs-keyword">await</span> strapi.upload(form);
+</code></pre>
+				<h4 id="node-js">Node.js</h4>
+				<pre><code class="lang-js"><span class="hljs-keyword">const</span> FormData = <span class="hljs-built_in">require</span>(<span class="hljs-string">'form-data'</span>);
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> form = <span class="hljs-keyword">new</span> FormData();
+form.append(<span class="hljs-string">'files'</span>, fs.createReadStream(<span class="hljs-string">'./file-name.ext'</span>), <span class="hljs-string">'file-name.ext'</span>);
+<span class="hljs-keyword">const</span> files = <span class="hljs-keyword">await</span> strapi.upload(form, {
+  <span class="hljs-attr">headers</span>: form.getHeaders()
+});
 </code></pre>
 				<h2 id="api">API</h2>
 				<h3 id="strapi-baseurl-storeconfig-requestconfig-"><code>Strapi(baseURL, storeConfig, requestConfig)</code></h3>
@@ -123,11 +139,13 @@
 				<ul>
 					<li><a href="https://strapi.github.io/strapi-sdk-javascript">Documentation</a></li>
 					<li><a href="https://github.com/strapi/strapi-sdk-javascript/blob/master/CHANGELOG.md">Changelog</a></li>
+					<li><a href="https://medium.com/strapi/announcing-the-strapi-javascript-sdk-ac89f140a9d1">Medium story</a></li>
 				</ul>
 				<h2 id="roadmap">Roadmap</h2>
 				<ul>
 					<li>GraphQL</li>
 					<li>Attach/Detach entry relationship</li>
+					<li>Real time with Socket.io</li>
 				</ul>
 				<h2 id="credits">Credits</h2>
 				<ul>
@@ -161,10 +179,10 @@
 						<a href="interfaces/localstorageconfig.html" class="tsd-kind-icon">Local<wbr>Storage<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/storeconfig.html" class="tsd-kind-icon">Store<wbr>Config</a>
+						<a href="interfaces/providertoken.html" class="tsd-kind-icon">Provider<wbr>Token</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/token.html" class="tsd-kind-icon">Token</a>
+						<a href="interfaces/storeconfig.html" class="tsd-kind-icon">Store<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#provider" class="tsd-kind-icon">Provider</a>
