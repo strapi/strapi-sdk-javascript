@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import * as Cookies from 'js-cookie';
 import * as qs from 'qs';
 
 export interface Authentication {
@@ -14,20 +15,65 @@ export interface Token {
   oauth_token?: string;
 }
 
+export interface CookieConfig {
+  key: string;
+  options: object;
+}
+
+export interface LocalStorageConfig {
+  key: string;
+}
+
+export interface StoreConfig {
+  cookie?: CookieConfig | false;
+  localStorage?: LocalStorageConfig | false;
+}
+
 export default class Strapi {
   public axios: AxiosInstance;
+  public storeConfig: StoreConfig;
 
   /**
    * Default constructor.
    * @param baseURL Your Strapi host.
    * @param axiosConfig Extend Axios configuration.
    */
-  constructor(baseURL: string, requestConfig?: AxiosRequestConfig) {
+  constructor(
+    baseURL: string,
+    storeConfig?: StoreConfig,
+    requestConfig?: AxiosRequestConfig
+  ) {
     this.axios = axios.create({
       baseURL,
       paramsSerializer: qs.stringify,
       ...requestConfig
     });
+    this.storeConfig = {
+      cookie: {
+        key: 'jwt',
+        options: {
+          path: '/'
+        }
+      },
+      localStorage: {
+        key: 'jwt'
+      },
+      ...storeConfig
+    };
+
+    if (this.isBrowser()) {
+      let existingToken;
+      if (this.storeConfig.cookie) {
+        existingToken = Cookies.get(this.storeConfig.cookie.key);
+      } else if (this.storeConfig.localStorage) {
+        existingToken = JSON.parse(window.localStorage.getItem(
+          this.storeConfig.localStorage.key
+        ) as string);
+      }
+      if (existingToken) {
+        this.setToken(existingToken, true);
+      }
+    }
   }
 
   /**
@@ -163,7 +209,7 @@ export default class Strapi {
   ): Promise<Authentication> {
     this.clearToken();
     // Handling browser query
-    if (typeof window !== 'undefined') {
+    if (this.isBrowser()) {
       params = qs.parse(window.location.search, { ignoreQueryPrefix: true });
     }
     const authentication: Authentication = await this.request(
@@ -285,14 +331,47 @@ export default class Strapi {
    * Set token on Axios configuration
    * @param token Retrieved by register or login
    */
-  public setToken(token: string): void {
+  public setToken(token: string, comesFromStorage?: boolean): void {
     this.axios.defaults.headers.common.Authorization = 'Bearer ' + token;
+    if (this.isBrowser() && !comesFromStorage) {
+      if (this.storeConfig.localStorage) {
+        window.localStorage.setItem(
+          this.storeConfig.localStorage.key,
+          JSON.stringify(token)
+        );
+      }
+      if (this.storeConfig.cookie) {
+        Cookies.set(
+          this.storeConfig.cookie.key,
+          token,
+          this.storeConfig.cookie.options
+        );
+      }
+    }
   }
 
   /**
    * Remove token from Axios configuration
    */
-  private clearToken(): void {
+  public clearToken(): void {
     delete this.axios.defaults.headers.common.Authorization;
+    if (this.isBrowser()) {
+      if (this.storeConfig.localStorage) {
+        window.localStorage.removeItem(this.storeConfig.localStorage.key);
+      }
+      if (this.storeConfig.cookie) {
+        Cookies.remove(
+          this.storeConfig.cookie.key,
+          this.storeConfig.cookie.options
+        );
+      }
+    }
+  }
+
+  /**
+   * Check if it runs on browser
+   */
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined';
   }
 }

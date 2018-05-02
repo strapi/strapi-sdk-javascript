@@ -53,9 +53,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "js-cookie": "^2.2.0",
     "qs": "^6.5.1"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.1.0",
     "@types/qs": "^6.5.1",
     "@types/sinon": "^4.3.1",
     "ava": "^1.0.0-beta.4",

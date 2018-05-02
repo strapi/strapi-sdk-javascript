@@ -40,13 +40,63 @@ test('Create an instance', t => {
       'getFile',
       'upload',
       'setToken',
-      'clearToken'
+      'clearToken',
+      'isBrowser'
     ]
   );
 
-  t.deepEqual(Object.getOwnPropertyNames(t.context.strapi), ['axios']);
+  t.deepEqual(Object.getOwnPropertyNames(t.context.strapi), [
+    'axios',
+    'storeConfig'
+  ]);
 
   t.deepEqual(t.context.strapi.axios.defaults.baseURL, 'http://strapi-host');
+});
+
+test.serial('Create an instance with existing token on localStorage', t => {
+  browserEnv(['window']);
+  const globalAny: any = global;
+  globalAny.window.localStorage = storageMock();
+  const setItem = sinon.spy(globalAny.window.localStorage, 'setItem');
+  globalAny.window.localStorage.setItem('jwt', '"XXX"');
+  const strapi = new Strapi('http://strapi-host', {
+    cookie: false
+  });
+
+  t.is(strapi.axios.defaults.headers.common.Authorization, 'Bearer XXX');
+  t.true(setItem.calledWith('jwt', '"XXX"'));
+  delete strapi.axios.defaults.headers.common.Authorization;
+  delete globalAny.window;
+});
+
+test('Create an instance with existing token on cookies', t => {
+  browserEnv(['window', 'document']);
+  const Cookies = require('js-cookie');
+  const globalAny: any = global;
+  Cookies.set('jwt', 'XXX');
+  // const CookieGet = sinon.spy(Cookies)
+
+  const strapi = new Strapi('http://strapi-host', {
+    localStorage: false
+  });
+
+  t.is(strapi.axios.defaults.headers.common.Authorization, 'Bearer XXX');
+  // TODO: Mock Cookies
+  // t.true(CookieGet.calledWith('jwt'));
+  delete strapi.axios.defaults.headers.common.Authorization;
+  delete globalAny.window;
+});
+
+test.serial('Create an instance without token', t => {
+  browserEnv(['window']);
+  const globalAny: any = global;
+  const strapi = new Strapi('http://strapi-host', {
+    cookie: false,
+    localStorage: false
+  });
+
+  t.is(strapi.axios.defaults.headers.common.Authorization, undefined);
+  delete globalAny.window;
 });
 
 test('Make a request', async t => {
@@ -243,19 +293,18 @@ test('Provider authentication on Node.js', async t => {
 });
 
 test.serial('Provider authentication on browser', async t => {
-  const globalAny: any = global;
   browserEnv(['window'], {
     url: 'http://localhost?access_token=XXX'
   });
+  const globalAny: any = global;
+  globalAny.window.localStorage = storageMock();
   t.context.axiosRequest.resolves({
     data: {
       jwt: 'foo',
       user: {}
     }
   });
-  const authentication = await t.context.strapi.authenticateProvider(
-    'github'
-  );
+  const authentication = await t.context.strapi.authenticateProvider('github');
 
   t.true(
     t.context.axiosRequest.calledWithExactly({
@@ -401,3 +450,53 @@ test('Set token', t => {
     'Bearer foo'
   );
 });
+
+test('Set token on Node.js', t => {
+  browserEnv(['window', 'document']);
+  // const Cookies = require('js-cookie');
+  const globalAny: any = global;
+  globalAny.window.localStorage = storageMock();
+  const setItem = sinon.spy(globalAny.window.localStorage, 'setItem');
+  // const CookieSet = sinon.spy(Cookies, 'set')
+
+  const strapi = new Strapi('http://strapi-host', {
+    cookie: false,
+    localStorage: false
+  });
+  strapi.setToken('XXX');
+
+  t.is(strapi.axios.defaults.headers.common.Authorization, 'Bearer XXX');
+  t.true(setItem.notCalled);
+  // t.true(CookieSet.notCalled)
+  delete globalAny.window;
+});
+
+test('Clear token without storage', t => {
+  browserEnv(['window']);
+  const globalAny: any = global;
+  globalAny.window.localStorage = storageMock();
+  const setItem = sinon.spy(globalAny.window.localStorage, 'setItem');
+  const strapi = new Strapi('http://strapi-host', {
+    cookie: false,
+    localStorage: false
+  });
+  strapi.axios.defaults.headers.common.Authorization = 'Bearer XXX';
+  strapi.clearToken();
+  t.true(setItem.notCalled);
+  t.is(strapi.axios.defaults.headers.common.Authorization, undefined);
+});
+
+function storageMock() {
+  const storage: any = {};
+  return {
+    setItem(key: string, value: string) {
+      storage[key] = value || '';
+    },
+    getItem(key: string) {
+      return key in storage ? storage[key] : null;
+    },
+    removeItem(key: string) {
+      delete storage[key];
+    }
+  };
+}
