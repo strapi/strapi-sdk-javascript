@@ -1,1 +1,2 @@
-export * from './lib/sdk';
+import Strapi from './lib/sdk';
+export default Strapi;
