@@ -225,64 +225,64 @@ export default class Strapi {
 
   /**
    * List entries
-   * @param contentType
+   * @param contentTypePluralized
    * @param params Filter and order queries.
    */
   public getEntries(
-    contentType: string,
+    contentTypePluralized: string,
     params?: AxiosRequestConfig['params']
   ): Promise<object[]> {
-    return this.request('get', `/${contentType}`, {
+    return this.request('get', `/${contentTypePluralized}`, {
       params
     });
   }
 
   /**
    * Get a specific entry
-   * @param contentType Type of entry
+   * @param contentTypePluralized Type of entry pluralized
    * @param id ID of entry
    */
-  public getEntry(contentType: string, id: string): Promise<object> {
-    return this.request('get', `/${contentType}/${id}`);
+  public getEntry(contentTypePluralized: string, id: string): Promise<object> {
+    return this.request('get', `/${contentTypePluralized}/${id}`);
   }
 
   /**
    * Create data
-   * @param contentType Type of entry
+   * @param contentTypePluralized Type of entry pluralized
    * @param data New entry
    */
   public createEntry(
-    contentType: string,
+    contentTypePluralized: string,
     data: AxiosRequestConfig['data']
   ): Promise<object> {
-    return this.request('post', `/${contentType}`, {
+    return this.request('post', `/${contentTypePluralized}`, {
       data
     });
   }
 
   /**
    * Update data
-   * @param contentType Type of entry
+   * @param contentTypePluralized Type of entry pluralized
    * @param id ID of entry
    * @param data
    */
   public updateEntry(
-    contentType: string,
+    contentTypePluralized: string,
     id: string,
     data: AxiosRequestConfig['data']
   ): Promise<object> {
-    return this.request('put', `/${contentType}/${id}`, {
+    return this.request('put', `/${contentTypePluralized}/${id}`, {
       data
     });
   }
 
   /**
    * Delete an entry
-   * @param contentType Type of entry
+   * @param contentTypePluralized Type of entry pluralized
    * @param id ID of entry
    */
-  public deleteEntry(contentType: string, id: string): Promise<object> {
-    return this.request('delete', `/${contentType}/${id}`);
+  public deleteEntry(contentTypePluralized: string, id: string): Promise<object> {
+    return this.request('delete', `/${contentTypePluralized}/${id}`);
   }
 
   /**
