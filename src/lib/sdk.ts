@@ -281,7 +281,10 @@ export default class Strapi {
    * @param contentTypePluralized Type of entry pluralized
    * @param id ID of entry
    */
-  public deleteEntry(contentTypePluralized: string, id: string): Promise<object> {
+  public deleteEntry(
+    contentTypePluralized: string,
+    id: string
+  ): Promise<object> {
     return this.request('delete', `/${contentTypePluralized}/${id}`);
   }
 
