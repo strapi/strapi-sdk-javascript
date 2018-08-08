@@ -87,16 +87,13 @@ export default class Strapi {
     url: string,
     requestConfig?: AxiosRequestConfig
   ): Promise<any> {
-    try {
-      const response: AxiosResponse = await this.axios.request({
-        method,
-        url,
-        ...requestConfig
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response.data.message);
-    }
+    const response: AxiosResponse = await this.axios.request({
+      method,
+      url,
+      ...requestConfig
+    });
+
+    return response.data;
   }
 
   /**
