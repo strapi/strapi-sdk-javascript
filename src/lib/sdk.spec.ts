@@ -31,6 +31,7 @@ test('Create an instance', t => {
       'getProviderAuthenticationUrl',
       'authenticateProvider',
       'getEntries',
+      'getEntryCount',
       'getEntry',
       'createEntry',
       'updateEntry',
@@ -345,6 +346,22 @@ test('Get entries', async t => {
         _sort: 'email:asc'
       },
       url: '/user'
+    })
+  );
+});
+
+test('Get entry count', async t => {
+  await t.context.strapi.getEntryCount('user', {
+    name_contains: 'jack'
+  });
+
+  t.true(
+    t.context.axiosRequest.calledWithExactly({
+      method: 'get',
+      params: {
+        name_contains: 'jack'
+      },
+      url: '/user/count'
     })
   );
 });
