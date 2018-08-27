@@ -46,7 +46,7 @@ await strapi.authenticateProvider('facebook');
 ```
 You can now fetch private APIs
 ```js
-const posts = await strapi.getEntries('posts');
+const posts = await strapi.getEntries('post');
 ```
 
 ### Files management
@@ -83,11 +83,11 @@ const files = await strapi.upload(form, {
 ### `authenticateProvider(provider, params)`
 ### `setToken(token, comesFromStorage)`
 ### `clearToken(token)`
-### `getEntries(contentTypePluralized, params)`
-### `getEntry(contentTypePluralized, id)`
-### `createEntry(contentTypePluralized, data)`
-### `updateEntry(contentTypePluralized, id, data)`
-### `deleteEntry(contentTypePluralized, id)`
+### `getEntries(contentType, params)`
+### `getEntry(contentType, id)`
+### `createEntry(contentType, data)`
+### `updateEntry(contentType, id, data)`
+### `deleteEntry(contentType, id)`
 ### `searchFiles(query)`
 ### `getFiles(params)`
 ### `getFile(id)`
