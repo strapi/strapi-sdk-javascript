@@ -133,15 +133,9 @@ test('Make a request with custom axios config', t => {
 });
 
 test('Catch a request', async t => {
-  t.context.axiosRequest.rejects({
-    response: {
-      data: {
-        message: 'error'
-      }
-    }
-  });
+  t.context.axiosRequest.rejects(new Error('error'));
 
-  await t.throws(
+  await t.throwsAsync(
     async () => {
       await t.context.strapi.request('get', '/foo');
     },

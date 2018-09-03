@@ -95,7 +95,11 @@ export default class Strapi {
       });
       return response.data;
     } catch (error) {
-      throw new Error(error.response.data.message);
+      if (error.response) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw error;
+      }
     }
   }
 
