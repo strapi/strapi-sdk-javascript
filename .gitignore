@@ -8,3 +8,4 @@ coverage
 *.log
 
 yarn.lock
+.idea

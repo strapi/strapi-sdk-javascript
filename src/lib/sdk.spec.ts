@@ -145,7 +145,13 @@ test('Catch a request', async t => {
     async () => {
       await t.context.strapi.request('get', '/foo');
     },
-    { message: 'error' }
+    {
+      response: {
+        data: {
+          message: 'error'
+        }
+      }
+    }
   );
 });
 
