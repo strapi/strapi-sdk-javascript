@@ -242,6 +242,20 @@ export default class Strapi {
   }
 
   /**
+   * Get the total count of entries with the provided criteria
+   * @param contentType
+   * @param params Filter and order queries.
+   */
+  public getEntryCount(
+    contentType: string,
+    params?: AxiosRequestConfig['params']
+  ): Promise<object[]> {
+    return this.request('get', `/${contentType}/count`, {
+      params
+    });
+  }
+
+  /**
    * Get a specific entry
    * @param contentType Type of entry
    * @param id ID of entry
