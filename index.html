@@ -90,7 +90,7 @@
 				<pre><code class="language-js"><span class="hljs-comment">// Complete the authentication: (The SDK will store the access token for you)</span>
 <span class="hljs-keyword">await</span> strapi.authenticateProvider(<span class="hljs-string">'facebook'</span>);</code></pre>
 				<p>You can now fetch private APIs</p>
-				<pre><code class="language-js"><span class="hljs-keyword">const</span> posts = <span class="hljs-keyword">await</span> strapi.getEntries(<span class="hljs-string">'post'</span>);</code></pre>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> posts = <span class="hljs-keyword">await</span> strapi.getEntries(<span class="hljs-string">'posts'</span>);</code></pre>
 				<h3 id="files-management">Files management</h3>
 				<h4 id="browser">Browser</h4>
 				<pre><code class="language-js"><span class="hljs-keyword">const</span> form = <span class="hljs-keyword">new</span> FormData();
@@ -116,11 +116,11 @@ form.append(<span class="hljs-string">'files'</span>, fs.createReadStream(<span 
 				<h3 id="authenticateprovider-provider-params-"><code>authenticateProvider(provider, params)</code></h3>
 				<h3 id="settoken-token-comesfromstorage-"><code>setToken(token, comesFromStorage)</code></h3>
 				<h3 id="cleartoken-token-"><code>clearToken(token)</code></h3>
-				<h3 id="getentries-contenttype-params-"><code>getEntries(contentType, params)</code></h3>
-				<h3 id="getentry-contenttype-id-"><code>getEntry(contentType, id)</code></h3>
-				<h3 id="createentry-contenttype-data-"><code>createEntry(contentType, data)</code></h3>
-				<h3 id="updateentry-contenttype-id-data-"><code>updateEntry(contentType, id, data)</code></h3>
-				<h3 id="deleteentry-contenttype-id-"><code>deleteEntry(contentType, id)</code></h3>
+				<h3 id="getentries-contenttypepluralized-params-"><code>getEntries(contentTypePluralized, params)</code></h3>
+				<h3 id="getentry-contenttypepluralized-id-"><code>getEntry(contentTypePluralized, id)</code></h3>
+				<h3 id="createentry-contenttypepluralized-data-"><code>createEntry(contentTypePluralized, data)</code></h3>
+				<h3 id="updateentry-contenttypepluralized-id-data-"><code>updateEntry(contentTypePluralized, id, data)</code></h3>
+				<h3 id="deleteentry-contenttypepluralized-id-"><code>deleteEntry(contentTypePluralized, id)</code></h3>
 				<h3 id="searchfiles-query-"><code>searchFiles(query)</code></h3>
 				<h3 id="getfiles-params-"><code>getFiles(params)</code></h3>
 				<h3 id="getfile-id-"><code>getFile(id)</code></h3>
