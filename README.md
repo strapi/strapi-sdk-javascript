@@ -85,6 +85,7 @@ const files = await strapi.upload(form, {
 ### `clearToken(token)`
 ### `getEntries(contentTypePluralized, params)`
 ### `getEntry(contentTypePluralized, id)`
+### `getEntryCount(contentTypePluralized, params)`
 ### `createEntry(contentTypePluralized, data)`
 ### `updateEntry(contentTypePluralized, id, data)`
 ### `deleteEntry(contentTypePluralized, id)`
