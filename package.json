@@ -63,7 +63,7 @@
     "@types/sinon": "^5.0.5",
     "ava": "^1.0.0-rc.2",
     "browser-env": "^3.2.5",
-    "codecov": "^3.1.0",
+    "codecov": "3.1.0",
     "cz-conventional-changelog": "^2.1.0",
     "form-data": "^2.3.3",
     "gh-pages": "^2.0.0",
