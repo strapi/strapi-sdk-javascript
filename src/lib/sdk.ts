@@ -113,9 +113,11 @@ export default class Strapi {
   public async register(
     username: string,
     email: string,
-    password: string
+    password: string,
+    tokenReset: boolean = true
   ): Promise<Authentication> {
-    this.clearToken();
+    if (tokenReset) this.clearToken();
+    
     const authentication: Authentication = await this.request(
       'post',
       '/auth/local/register',
@@ -127,7 +129,7 @@ export default class Strapi {
         }
       }
     );
-    this.setToken(authentication.jwt);
+    if (tokenReset) this.setToken(authentication.jwt);
     return authentication;
   }
 
