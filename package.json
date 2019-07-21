@@ -64,7 +64,7 @@
     "ava": "^1.0.0-rc.2",
     "browser-env": "^3.2.5",
     "codecov": "^3.1.0",
-    "cz-conventional-changelog": "^2.1.0",
+    "cz-conventional-changelog": "^3.0.2",
     "form-data": "^2.3.3",
     "gh-pages": "^2.0.0",
     "npm-run-all": "^4.1.3",
