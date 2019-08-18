@@ -61,7 +61,7 @@
     "@types/js-cookie": "^2.2.0",
     "@types/qs": "^6.5.1",
     "@types/sinon": "^5.0.5",
-    "ava": "^1.0.0-rc.2",
+    "ava": "^2.3.0",
     "browser-env": "^3.2.5",
     "codecov": "^3.1.0",
     "cz-conventional-changelog": "^2.1.0",
