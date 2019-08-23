@@ -44,9 +44,11 @@ Once authorized, the provider will redirects the user to your app with an access
 // Complete the authentication: (The SDK will store the access token for you)
 await strapi.authenticateProvider('facebook');
 ```
-You can now fetch private APIs
+You can now fetch private APIs. If no generic type is provided the default return value will be of type Object or Object[] depending on the function that has been called.
 ```js
 const posts = await strapi.getEntries('posts');
+
+const posts = await strapi.getEntries<PostDto[]>('posts');
 ```
 
 ### Files management
