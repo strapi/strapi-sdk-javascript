@@ -1,3 +1,13 @@
+⚠️ This package not up to date and maintained ⚠️
+
+We recommend you not to use this package. We stopped to maintained it by lack of time and also because the features provided by this SDK are the same as a good HTTP client well configured.
+So I suggest you use the best HTTP client for the technology you use. To configure it to target your Strapi API.
+Here so usefull ressources to help you:
+- [**API Endpoints**](https://strapi.io/documentation/3.0.0-beta.x/guides/api-endpoints.html#endpoints)
+- [**URL parameters**](https://strapi.io/documentation/3.0.0-beta.x/guides/parameters.html)
+
+---
+
 <p align="center"><img src="https://cldup.com/7umchwdUBh.png" /></p>
 
 <h3 align="center">The official Strapi SDK for JavaScript, available for browsers or Node.js backends.</h3>
