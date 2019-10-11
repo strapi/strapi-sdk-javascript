@@ -237,7 +237,9 @@ export default class Strapi {
     params?: AxiosRequestConfig['params']
   ): Promise<object[]> {
     return this.request('get', `/${contentTypePluralized}`, {
-      params
+      params,
+      paramsSerializer: (pars?: AxiosRequestConfig['params']) =>
+        qs.stringify(pars, { arrayFormat: 'repeat' })
     });
   }
 
@@ -251,7 +253,9 @@ export default class Strapi {
     params?: AxiosRequestConfig['params']
   ): Promise<object[]> {
     return this.request('get', `/${contentType}/count`, {
-      params
+      params,
+      paramsSerializer: (pars?: AxiosRequestConfig['params']) =>
+        qs.stringify(pars, { arrayFormat: 'repeat' })
     });
   }
 
@@ -321,7 +325,9 @@ export default class Strapi {
    */
   public getFiles(params?: AxiosRequestConfig['params']): Promise<object[]> {
     return this.request('get', '/upload/files', {
-      params
+      params,
+      paramsSerializer: (pars?: AxiosRequestConfig['params']) =>
+        qs.stringify(pars, { arrayFormat: 'repeat' })
     });
   }
 
