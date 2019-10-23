@@ -232,10 +232,10 @@ export default class Strapi {
    * @param contentTypePluralized
    * @param params Filter and order queries.
    */
-  public getEntries(
+  public getEntries<T = object[]>(
     contentTypePluralized: string,
     params?: AxiosRequestConfig['params']
-  ): Promise<object[]> {
+  ): Promise<T> {
     return this.request('get', `/${contentTypePluralized}`, {
       params
     });
@@ -246,10 +246,10 @@ export default class Strapi {
    * @param contentType
    * @param params Filter and order queries.
    */
-  public getEntryCount(
+  public getEntryCount<T = object[]>(
     contentType: string,
     params?: AxiosRequestConfig['params']
-  ): Promise<object[]> {
+  ): Promise<T> {
     return this.request('get', `/${contentType}/count`, {
       params
     });
@@ -260,7 +260,7 @@ export default class Strapi {
    * @param contentTypePluralized Type of entry pluralized
    * @param id ID of entry
    */
-  public getEntry(contentTypePluralized: string, id: string): Promise<object> {
+  public getEntry<T = object>(contentTypePluralized: string, id: string): Promise<T> {
     return this.request('get', `/${contentTypePluralized}/${id}`);
   }
 
@@ -269,10 +269,10 @@ export default class Strapi {
    * @param contentTypePluralized Type of entry pluralized
    * @param data New entry
    */
-  public createEntry(
+  public createEntry<T = object>(
     contentTypePluralized: string,
     data: AxiosRequestConfig['data']
-  ): Promise<object> {
+  ): Promise<T> {
     return this.request('post', `/${contentTypePluralized}`, {
       data
     });
@@ -284,11 +284,11 @@ export default class Strapi {
    * @param id ID of entry
    * @param data
    */
-  public updateEntry(
+  public updateEntry<T = object>(
     contentTypePluralized: string,
     id: string,
     data: AxiosRequestConfig['data']
-  ): Promise<object> {
+  ): Promise<T> {
     return this.request('put', `/${contentTypePluralized}/${id}`, {
       data
     });
@@ -299,10 +299,10 @@ export default class Strapi {
    * @param contentTypePluralized Type of entry pluralized
    * @param id ID of entry
    */
-  public deleteEntry(
+  public deleteEntry<T = object>(
     contentTypePluralized: string,
     id: string
-  ): Promise<object> {
+  ): Promise<T> {
     return this.request('delete', `/${contentTypePluralized}/${id}`);
   }
 
@@ -310,7 +310,7 @@ export default class Strapi {
    * Search for files
    * @param query Keywords
    */
-  public searchFiles(query: string): Promise<object[]> {
+  public searchFiles<T = object[]>(query: string): Promise<T> {
     return this.request('get', `/upload/search/${decodeURIComponent(query)}`);
   }
 
@@ -319,7 +319,7 @@ export default class Strapi {
    * @param params Filter and order queries
    * @returns Object[] Files data
    */
-  public getFiles(params?: AxiosRequestConfig['params']): Promise<object[]> {
+  public getFiles<T = object[]>(params?: AxiosRequestConfig['params']): Promise<T> {
     return this.request('get', '/upload/files', {
       params
     });
@@ -329,7 +329,7 @@ export default class Strapi {
    * Get file
    * @param id ID of entry
    */
-  public getFile(id: string): Promise<object> {
+  public getFile<T = object>(id: string): Promise<T> {
     return this.request('get', `/upload/files/${id}`);
   }
 
@@ -358,10 +358,10 @@ export default class Strapi {
    * @param data FormData
    * @param requestConfig
    */
-  public upload(
+  public upload<T = object>(
     data: FormData,
     requestConfig?: AxiosRequestConfig
-  ): Promise<object> {
+  ): Promise<T> {
     return this.request('post', '/upload', {
       data,
       ...requestConfig
