@@ -74,7 +74,7 @@
     "opn-cli": "^4.0.0",
     "prettier": "^1.15.2",
     "sinon": "^7.1.1",
-    "standard-version": "^4.4.0",
+    "standard-version": "^7.0.1",
     "trash-cli": "^1.4.0",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.16.0",
