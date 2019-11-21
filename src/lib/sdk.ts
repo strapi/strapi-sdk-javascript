@@ -163,9 +163,9 @@ export default class Strapi {
    * @param email
    * @param url Link that user will receive.
    */
-  public async forgotPassword(email: string, url: string): Promise<void> {
+  public async forgotPassword(email: string, url: string): Promise<Object> {
     this.clearToken();
-    await this.request('post', '/auth/forgot-password', {
+    return this.request('post', '/auth/forgot-password', {
       data: {
         email,
         url
@@ -183,9 +183,9 @@ export default class Strapi {
     code: string,
     password: string,
     passwordConfirmation: string
-  ): Promise<void> {
+  ): Promise<Authentication> {
     this.clearToken();
-    await this.request('post', '/auth/reset-password', {
+    return this.request('post', '/auth/reset-password', {
       data: {
         code,
         password,
