@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { Method ,AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as Cookies from 'js-cookie';
 import * as qs from 'qs';
 
@@ -83,7 +83,7 @@ export default class Strapi {
    * @param requestConfig Custom Axios config
    */
   public async request(
-    method: string,
+    method: Method,
     url: string,
     requestConfig?: AxiosRequestConfig
   ): Promise<any> {
@@ -149,7 +149,7 @@ export default class Strapi {
         data: {
           identifier,
           password
-        }
+        } 
       }
     );
     this.setToken(authentication.jwt);
