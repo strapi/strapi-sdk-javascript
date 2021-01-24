@@ -36,9 +36,9 @@ export interface StoreConfig {
   localStorage ? : LocalStorageConfig | false;
 }
 export interface StrapiOptions {
-  url: string
+  url?: string
   storeConfig ? : StoreConfig,
-    requestConfig ? : AxiosRequestConfig
+  requestConfig ? : AxiosRequestConfig
 }
 export interface StrapiLoginResult {
   user: StrapiUser

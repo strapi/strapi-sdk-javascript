@@ -33,18 +33,31 @@ npm install strapi-sdk-javascript
 ### New instance
 ```js
 import Strapi from 'strapi-sdk-javascript';
-
-const strapi = new Strapi('http://localhost:1337');
+const  options = {
+    url:'', // by default : 'http://localhost:1337
+    storeConfig:{
+        cookie: {
+        key: 'jwt',
+        options: {
+          path: '/'
+        }
+    },
+    localStorage:{} // | boolean
+    },
+    requestConfig: '',
+}
+const strapi = new Strapi(options)
 ```
+
+
 
 ### Authentications
 
 #### Local
 ```js
-await strapi.login('username_or_email', 's3cr3t');
+await strapi.login({identifier:'email', password:'password'});
 ```
 
-#### [Providers](https://strapi.io/documentation/guides/authentication.html#providers)
 ```js
 // Redirect your user to the provider's authentication page.
 window.location = strapi.getProviderAuthenticationUrl('facebook');
@@ -56,7 +69,7 @@ await strapi.authenticateProvider('facebook');
 ```
 You can now fetch private APIs
 ```js
-const posts = await strapi.getEntries('posts');
+const posts = await strapi.find('posts');
 ```
 
 ### Files management
@@ -83,26 +96,28 @@ const files = await strapi.upload(form, {
 
 ## API
 
-### `Strapi(baseURL, storeConfig, requestConfig)`
+### `Strapi({url, storeConfig, requestConfig})` ..url default: loclahost:1337
 ### `request(method, url, requestConfig)`
-### `register(username, email, password)`
-### `login(identifier, password)`
-### `forgotPassword(email, url)`
-### `resetPassword(code, password, passwordConfirmation)`
+### `register(username:'usernme', email:'email', password:'password' )`
+### `login({identifier:'email', password:'password'})`
+### `forgotPassword({email:'email'})`
+### `resetPassword({code:'code', password:'password', passwordConfirmation:'passwordConfirmation'})`
 ### `getProviderAuthenticationUrl(provider)`
 ### `authenticateProvider(provider, params)`
 ### `setToken(token, comesFromStorage)`
 ### `clearToken(token)`
-### `getEntries(contentTypePluralized, params)`
-### `getEntry(contentTypePluralized, id)`
-### `getEntryCount(contentTypePluralized, params)`
-### `createEntry(contentTypePluralized, data)`
-### `updateEntry(contentTypePluralized, id, data)`
-### `deleteEntry(contentTypePluralized, id)`
+### `me()` return data users/me :fea
+### `find(entity, params)`
+### `findByID(entity, id)`
+### `count(entity, params)`
+### `create(entity, data)`
+### `update(entity, id, data)`
+### `delete(entity, id)`
 ### `searchFiles(query)`
-### `getFiles(params)`
-### `getFile(id)`
+### `findFiles(params)`
+### `findFile(id)`
 ### `upload(data)`
+### `graphql(query)` :fea
 
 #### requestConfig
 
