@@ -25,8 +25,8 @@
     "cov:html": "nyc report --reporter=html",
     "cov:send": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
-    "doc": "run-s doc:html && opn build/docs/index.html",
-    "doc:html": "typedoc src/ --target ES6 --mode file --out build/docs --exclude **/*.spec.ts",
+    "doc": "run-s doc:html && open-cli build/docs/index.html",
+    "doc:html": "typedoc src/  --out build/docs --exclude **/*.spec.ts",
     "doc:json": "typedoc src/ --target ES6 --mode file --json build/docs/typedoc.json --exclude **/*.spec.ts",
     "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
     "version": "standard-version",
@@ -52,12 +52,12 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "axios": "^0.21.1",  
+    "axios": "^0.21.1",
     "js-cookie": "^2.2.1",
     "qs": "^6.9.2"
   },
   "devDependencies": {
-    "@types/js-cookie": "^2.2.6",   
+    "@types/js-cookie": "^2.2.6",
     "@types/node": "^14.14.22",
     "@types/qs": "^6.9.5",
     "@types/sinon": "^9.0.10",

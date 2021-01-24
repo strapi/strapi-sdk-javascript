@@ -1,15 +1,19 @@
-import anyTest, { TestInterface } from 'ava';
+import anyTest, {
+  TestInterface
+} from 'ava';
 import browserEnv from 'browser-env';
 import * as sinon from 'sinon';
 import Strapi from './sdk';
 
-const test = anyTest as TestInterface<{
+const test = anyTest as TestInterface < {
   strapi: Strapi;
   axiosRequest: sinon.SinonStub;
-}>;
+} > ;
 
 test.beforeEach(t => {
-  const strapi = new Strapi('http://strapi-host');
+  const strapi = new Strapi({
+    url: 'http://strapi-hot'
+  });
   t.context = {
     axiosRequest: sinon.stub(strapi.axios, 'request').resolves({
       data: {}
@@ -30,15 +34,15 @@ test('Create an instance', t => {
       'resetPassword',
       'getProviderAuthenticationUrl',
       'authenticateProvider',
-      'getEntries',
-      'getEntryCount',
-      'getEntry',
-      'createEntry',
-      'updateEntry',
-      'deleteEntry',
+      'find',
+      'count',
+      'findById',
+      'create',
+      'update',
+      'delete',
       'searchFiles',
-      'getFiles',
-      'getFile',
+      'findFiles',
+      'findFile',
       'upload',
       'setToken',
       'clearToken',
@@ -60,8 +64,11 @@ test.serial('Create an instance with existing token on localStorage', t => {
   globalAny.window.localStorage = storageMock();
   const setItem = sinon.spy(globalAny.window.localStorage, 'setItem');
   globalAny.window.localStorage.setItem('jwt', '"XXX"');
-  const strapi = new Strapi('http://strapi-host', {
-    cookie: false
+  const strapi = new Strapi({
+    url: 'strapi',
+    storeConfig: {
+      cookie: false
+    }
   });
 
   t.is(strapi.axios.defaults.headers.common.Authorization, 'Bearer XXX');
@@ -77,8 +84,11 @@ test('Create an instance with existing token on cookies', t => {
   Cookies.set('jwt', 'XXX');
   // const CookieGet = sinon.spy(Cookies)
 
-  const strapi = new Strapi('http://strapi-host', {
-    localStorage: false
+  const strapi = new Strapi({
+    url: 'strapi',
+    storeConfig: {
+      localStorage: false
+    }
   });
 
   t.is(strapi.axios.defaults.headers.common.Authorization, 'Bearer XXX');
@@ -91,9 +101,12 @@ test('Create an instance with existing token on cookies', t => {
 test.serial('Create an instance without token', t => {
   browserEnv(['window']);
   const globalAny: any = global;
-  const strapi = new Strapi('http://strapi-host', {
-    cookie: false,
-    localStorage: false
+  const strapi = new Strapi({
+    url: 'strapi',
+    storeConfig: {
+      cookie: false,
+      localStorage: false
+    }
   });
 
   t.is(strapi.axios.defaults.headers.common.Authorization, undefined);
@@ -102,7 +115,9 @@ test.serial('Create an instance without token', t => {
 
 test('Make a request', async t => {
   t.context.axiosRequest.resolves({
-    data: [{ foo: 'bar' }]
+    data: [{
+      foo: 'bar'
+    }]
   });
   const data = await t.context.strapi.request('get', '/foo');
 
@@ -112,7 +127,9 @@ test('Make a request', async t => {
       url: '/foo'
     })
   );
-  t.deepEqual(data, [{ foo: 'bar' }]);
+  t.deepEqual(data, [{
+    foo: 'bar'
+  }]);
 });
 
 test('Make a request with custom axios config', t => {
@@ -139,8 +156,9 @@ test('Catch a network request', async t => {
   await t.throwsAsync(
     async () => {
       await t.context.strapi.request('get', '/foo');
-    },
-    { message: 'Network Error' }
+    }, {
+      message: 'Network Error'
+    }
   );
 });
 
@@ -156,8 +174,9 @@ test('Catch a request', async t => {
   await t.throwsAsync(
     async () => {
       await t.context.strapi.request('get', '/foo');
-    },
-    { message: 'error' }
+    }, {
+      message: 'error'
+    }
   );
 });
 
@@ -168,11 +187,11 @@ test('Register', async t => {
       user: {}
     }
   });
-  const authentication = await t.context.strapi.register(
-    'username',
-    'foo@bar.com',
-    'password'
-  );
+  const authentication = await t.context.strapi.register({
+    username: 'username',
+    email: 'foo@bar.com',
+    password: 'password'
+  });
 
   t.true(
     t.context.axiosRequest.calledWithExactly({
@@ -198,7 +217,10 @@ test('Login', async t => {
       user: {}
     }
   });
-  const authentication = await t.context.strapi.login('identifier', 'password');
+  const authentication = await t.context.strapi.login({
+    identifier: 'identifier',
+    password: 'password'
+  });
 
   t.true(
     t.context.axiosRequest.calledWithExactly({
@@ -225,7 +247,10 @@ test.serial('Set Authorization header on axios', async t => {
       user: {}
     }
   });
-  const authentication = await t.context.strapi.login('identifier', 'password');
+  const authentication = await t.context.strapi.login({
+    identifier: 'identifier',
+    password: 'password'
+  });
 
   t.true(setToken.calledWithExactly(authentication.jwt));
   t.is(
@@ -235,16 +260,14 @@ test.serial('Set Authorization header on axios', async t => {
 });
 
 test('Forgot password', async t => {
-  await t.context.strapi.forgotPassword(
-    'foo@bar.com',
-    'https://my-domain.com/reset-password'
-  );
+  await t.context.strapi.forgotPassword({
+    email: 'foo@bar.com',
+  });
 
   t.true(
     t.context.axiosRequest.calledWithExactly({
       data: {
         email: 'foo@bar.com',
-        url: 'https://my-domain.com/reset-password'
       },
       method: 'post',
       url: '/auth/forgot-password'
@@ -253,7 +276,11 @@ test('Forgot password', async t => {
 });
 
 test('Reset password', async t => {
-  await t.context.strapi.resetPassword('code', 'password', 'confirm');
+  await t.context.strapi.resetPassword({
+    code: 'code',
+    password: 'password',
+    passwordConfirmation: 'confirm'
+  });
 
   t.true(
     t.context.axiosRequest.calledWithExactly({
@@ -283,8 +310,7 @@ test('Provider authentication on Node.js', async t => {
     }
   });
   const authentication = await t.context.strapi.authenticateProvider(
-    'facebook',
-    {
+    'facebook', {
       code: 'XXX'
     }
   );
@@ -335,7 +361,7 @@ test.serial('Provider authentication on browser', async t => {
 });
 
 test('Get entries', async t => {
-  await t.context.strapi.getEntries('user', {
+  await t.context.strapi.find('user', {
     _sort: 'email:asc'
   });
 
@@ -351,7 +377,7 @@ test('Get entries', async t => {
 });
 
 test('Get entry count', async t => {
-  await t.context.strapi.getEntryCount('user', {
+  await t.context.strapi.count('user', {
     name_contains: 'jack'
   });
 
@@ -367,7 +393,7 @@ test('Get entry count', async t => {
 });
 
 test('Get entry', async t => {
-  await t.context.strapi.getEntry('user', 'ID');
+  await t.context.strapi.findById('user', 'ID');
 
   t.true(
     t.context.axiosRequest.calledWithExactly({
@@ -378,7 +404,7 @@ test('Get entry', async t => {
 });
 
 test('Create entry', async t => {
-  await t.context.strapi.createEntry('user', {
+  await t.context.strapi.create('user', {
     foo: 'bar'
   });
 
@@ -394,7 +420,7 @@ test('Create entry', async t => {
 });
 
 test('Update entry', async t => {
-  await t.context.strapi.updateEntry('user', 'ID', {
+  await t.context.strapi.update('user', 'ID', {
     foo: 'bar'
   });
 
@@ -410,7 +436,7 @@ test('Update entry', async t => {
 });
 
 test('Delete entry', async t => {
-  await t.context.strapi.deleteEntry('user', 'ID');
+  await t.context.strapi.delete('user', 'ID');
 
   t.true(
     t.context.axiosRequest.calledWithExactly({
@@ -432,7 +458,7 @@ test('Search files', async t => {
 });
 
 test('Get files', async t => {
-  await t.context.strapi.getFiles({
+  await t.context.strapi.findFiles({
     _sort: 'size:asc'
   });
 
@@ -479,7 +505,9 @@ test.serial('Upload file on Browser', async t => {
   const form = new globalAny.window.FormData();
   form.append(
     'files',
-    new globalAny.window.Blob(['foo'], { type: 'text/plain' }),
+    new globalAny.window.Blob(['foo'], {
+      type: 'text/plain'
+    }),
     'file-name.ext'
   );
   await t.context.strapi.upload(form);
@@ -511,9 +539,12 @@ test('Set token on Node.js', t => {
   const setItem = sinon.spy(globalAny.window.localStorage, 'setItem');
   // const CookieSet = sinon.spy(Cookies, 'set')
 
-  const strapi = new Strapi('http://strapi-host', {
-    cookie: false,
-    localStorage: false
+  const strapi = new Strapi({
+    url: 'strapi',
+    storeConfig: {
+      cookie: false,
+      localStorage: false
+    }
   });
   strapi.setToken('XXX');
 
@@ -528,9 +559,12 @@ test('Clear token without storage', t => {
   const globalAny: any = global;
   globalAny.window.localStorage = storageMock();
   const setItem = sinon.spy(globalAny.window.localStorage, 'setItem');
-  const strapi = new Strapi('http://strapi-host', {
-    cookie: false,
-    localStorage: false
+  const strapi = new Strapi({
+    url: 'strapi',
+    storeConfig: {
+      cookie: false,
+      localStorage: false
+    }
   });
   strapi.axios.defaults.headers.common.Authorization = 'Bearer XXX';
   strapi.clearToken();
